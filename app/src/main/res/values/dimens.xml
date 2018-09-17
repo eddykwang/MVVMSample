@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <dimen name="category_fragment_product_grid_rv_item_min_width">175dp</dimen>
+  <dimen name="category_fragment_view_pager_sell_btn_dimen">80dp</dimen>
+  <dimen name="category_fragment_product_grid_rv_item_pic_dimen">170dp</dimen>
+  <dimen name="category_fragment_product_grid_rv_item_sold_out_width">76dp</dimen>
+  <dimen name="category_fragment_product_grid_rv_item_sold_out_height">44dp</dimen>
+  <dimen name="category_fragment_product_grid_rv_item_padding">4dp</dimen>
+  <dimen name="category_fragment_product_grid_rv_item_attr_height">30dp</dimen>
+  <dimen name="core_text_size_x_small">12sp</dimen>
+  <dimen name="core_text_size_small">14sp</dimen>
+  <dimen name="core_text_size_normal">16sp</dimen>
+  <dimen name="core_text_size_large">18sp</dimen>
+  <dimen name="core_progressbar_layout_padding">20dp</dimen>
+  <dimen name="core_progressbar_text_margin">10dp</dimen>
+</resources>

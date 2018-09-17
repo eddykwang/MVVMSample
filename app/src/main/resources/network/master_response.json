@@ -1,0 +1,14 @@
+[
+    {
+        "name": "All",
+        "data": "category_all.json"
+    },
+    {
+        "name": "Men",
+        "data": "category_men.json"
+    },
+    {
+        "name": "Women",
+        "data": "category_women.json"
+    }
+]
