@@ -1,17 +1,13 @@
 package com.eddystudio.mvvmsample
 
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
-import androidx.appcompat.app.AppCompatActivity;
-import android.view.Menu
-import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.eddystudio.mvvmsample.model.ProductItem
-import com.eddystudio.mvvmsample.repo.Repository
+import com.eddystudio.mvvmsample.databinding.ActivityMainBinding
 import com.eddystudio.mvvmsample.viewmodel.ActivityVM
 import com.eddystudio.mvvmsample.viewmodel.ItemVM
 import com.eddystudio.quickrecyclerviewadapterlib.QuickRecyclerViewAdapter
@@ -26,11 +22,12 @@ class MainActivity : AppCompatActivity() {
   lateinit var vm: ActivityVM
   lateinit var adapter: QuickRecyclerViewAdapter<ItemVM>
   lateinit var layoutManager: GridLayoutManager
-  lateinit var recyclerView: RecyclerView;
+  lateinit var recyclerView: RecyclerView
+  lateinit var binding: ActivityMainBinding
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_main)
+    binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
     setSupportActionBar(toolbar)
 
     recyclerView = findViewById<RecyclerView>(R.id.main_recycler_view)
@@ -61,7 +58,7 @@ class MainActivity : AppCompatActivity() {
   }
 
   private fun onError(throwable: Throwable) {
-    Toast.makeText(this, "error: ${throwable.toString()}", Toast.LENGTH_LONG).show()
+    Toast.makeText(this, "error: $throwable", Toast.LENGTH_LONG).show()
 
   }
 
@@ -69,4 +66,8 @@ class MainActivity : AppCompatActivity() {
     adapter.SetItemList(list)
   }
 
+  override fun onDestroy() {
+    super.onDestroy()
+    vm.onVmCleared()
+  }
 }

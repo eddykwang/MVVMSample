@@ -9,6 +9,11 @@
     <variable
       name="vm"
       type="com.eddystudio.mvvmsample.viewmodel.ItemVM"/>
+
+    <import type="android.view.View"/>
+
+    <import type="java.lang.Integer"/>
+
   </data>
 
   <RelativeLayout
@@ -24,7 +29,7 @@
       android:layout_height="wrap_content"
       android:minHeight="@dimen/category_fragment_product_grid_rv_item_pic_dimen"
       android:scaleType="centerCrop"
-      bind:imageUrl="@{vm.imageUrl}"
+      bind:imageUrl="@{vm.productItem.imgUrl}"
       tools:background="@android:color/darker_gray"
       />
 
@@ -36,7 +41,7 @@
       android:layout_alignTop="@id/category_fragment_product_grid_rv_item_pic_img"
       android:layout_alignParentTop="true"
       android:src="@drawable/badge_soldout"
-      android:visibility="invisible"
+      android:visibility="@{vm.showBadge ? View.VISIBLE : View.GONE}"
       tools:visibility="visible"/>
 
     <TextView
@@ -48,7 +53,7 @@
       android:ellipsize="end"
       android:maxLines="1"
       android:padding="@dimen/category_fragment_product_grid_rv_item_padding"
-      android:text="@{vm.title}"
+      android:text="@{vm.productItem.name}"
       android:textColor="@android:color/white"
       android:textSize="@dimen/core_text_size_small"
       tools:text="Test item long description"/>
@@ -74,7 +79,7 @@
         android:drawableStart="@drawable/icon_like"
         android:ellipsize="end"
         android:maxLines="1"
-        android:text="@{vm.rate}"
+        android:text="@{Integer.toString(vm.productItem.likes)}"
         android:textSize="@dimen/core_text_size_x_small"
         tools:text="1000"/>
 
@@ -88,7 +93,7 @@
         android:drawableStart="@drawable/icon_comment"
         android:ellipsize="end"
         android:maxLines="1"
-        android:text="@{vm.comment}"
+        android:text="@{Integer.toString(vm.productItem.comments)}"
         android:textSize="@dimen/core_text_size_x_small"
         tools:text="1000"/>
 
@@ -99,7 +104,7 @@
         android:layout_alignParentEnd="true"
         android:ellipsize="none"
         android:singleLine="true"
-        android:text="@{vm.price}"
+        android:text="@{Double.toString(vm.productItem.price)}"
         android:textSize="@dimen/core_text_size_x_small"
         tools:text="$ 100"/>
 

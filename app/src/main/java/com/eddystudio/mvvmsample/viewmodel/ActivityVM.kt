@@ -2,6 +2,7 @@ package com.eddystudio.mvvmsample.viewmodel
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.eddystudio.mvvmsample.model.ProductItem
 import com.eddystudio.mvvmsample.repo.Repository
@@ -13,6 +14,12 @@ import io.reactivex.subjects.PublishSubject
 class ActivityVM : ViewModel() {
   private val eventSubject = PublishSubject.create<Event>()
 
+  val showLoading = MutableLiveData<Boolean>()
+
+  init {
+    showLoading.postValue(true)
+  }
+
   fun getEvent(): Observable<Event> {
     return eventSubject.hide()
   }
@@ -20,7 +27,7 @@ class ActivityVM : ViewModel() {
   private val compositeDisposable = CompositeDisposable()
   fun getData() {
     val repo = Repository()
-
+    showLoading.postValue(true)
     compositeDisposable.add(
         repo.getProduct("all")
             ?.map { toVm(it) }
@@ -32,6 +39,9 @@ class ActivityVM : ViewModel() {
                 {
                   eventSubject.onNext(Event.OnError(it))
                 }
+                , {
+              showLoading.postValue(false)
+            }
             )!!
     )
   }
@@ -45,8 +55,7 @@ class ActivityVM : ViewModel() {
   }
 
 
-  override fun onCleared() {
-    super.onCleared()
+  fun onVmCleared() {
     compositeDisposable.clear()
   }
 

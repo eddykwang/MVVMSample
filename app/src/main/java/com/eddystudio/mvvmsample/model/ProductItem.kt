@@ -8,7 +8,7 @@ data class ProductItem(
     val itemId: String,
     val name: String,
     var categoryName: String? = null,
-    var status: ItemStatus = ItemStatus.ON_SALE,
+    var status: String? = null,
 
     @SerializedName("num_likes")
     var likes: Int = 0,
