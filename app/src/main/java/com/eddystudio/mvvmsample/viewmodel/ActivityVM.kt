@@ -65,11 +65,15 @@ class ActivityVM : ViewModel() {
     data class OnError(val throwable: Throwable) : Event
   }
 
+  companion object {
+    @BindingAdapter("bind:imageUrl")
+    @JvmStatic
+    fun ImageView.setImageUrl(imageUrl: String) {
+      Picasso.get()
+          .load(imageUrl)
+          .into(this)
+    }
+  }
+
 }
 
-@BindingAdapter("bind:imageUrl")
-fun ImageView.setImageUrl(imageUrl: String) {
-  Picasso.get()
-      .load(imageUrl)
-      .into(this)
-}

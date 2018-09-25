@@ -3,6 +3,7 @@ package com.eddystudio.mvvmsample
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.Toast
+import androidx.annotation.VisibleForTesting
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
@@ -24,6 +25,8 @@ class MainActivity : AppCompatActivity() {
   lateinit var layoutManager: GridLayoutManager
   lateinit var recyclerView: RecyclerView
   lateinit var binding: ActivityMainBinding
+  @VisibleForTesting
+  var isTest = false
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -44,17 +47,19 @@ class MainActivity : AppCompatActivity() {
     recyclerView.adapter = adapter
     recyclerView.layoutManager = layoutManager
 
-    vm.getEvent()
-        .observeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .compose {
-          Observable.merge(
-              it.ofType(ActivityVM.Event.OnCompeleted::class.java).doOnNext { d -> onData(d.list) },
-              it.ofType(ActivityVM.Event.OnError::class.java).doOnNext { e -> onError(e.throwable) }
-          )
-        }.subscribe()
+    if(isTest) {
+      vm.getEvent()
+          .observeOn(Schedulers.io())
+          .observeOn(AndroidSchedulers.mainThread())
+          .compose {
+            Observable.merge(
+                it.ofType(ActivityVM.Event.OnCompeleted::class.java).doOnNext { d -> onData(d.list) },
+                it.ofType(ActivityVM.Event.OnError::class.java).doOnNext { e -> onError(e.throwable) }
+            )
+          }.subscribe()
 
-    vm.getData()
+      vm.getData()
+    }
   }
 
   private fun onError(throwable: Throwable) {
