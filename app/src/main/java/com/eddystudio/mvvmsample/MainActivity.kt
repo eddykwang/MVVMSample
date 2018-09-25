@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
     recyclerView.adapter = adapter
     recyclerView.layoutManager = layoutManager
 
-    if(isTest) {
+    if(!isTest) {
       vm.getEvent()
           .observeOn(Schedulers.io())
           .observeOn(AndroidSchedulers.mainThread())
